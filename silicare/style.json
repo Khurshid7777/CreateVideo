@@ -1,0 +1,50 @@
+{
+  "_comment": "Технические параметры раздела «Кинематографичный стиль» ТЗ. Их читают check.py (длина, кадры, слова на карточку) и assemble.py (формат, титры, звук).",
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 24,
+    "min_sec": 15,
+    "max_sec": 25,
+    "min_shots": 5,
+    "max_shots": 8
+  },
+  "safe_zone": {
+    "top_px": 250,
+    "bottom_px": 300
+  },
+  "titles": {
+    "font_family": "Manrope SemiBold",
+    "font_file": "assets/fonts/Manrope-SemiBold.ttf",
+    "font_note": "Manrope из ТЗ не содержит қ ғ ҳ и ʻ: узбекские титры на кириллице им не набрать. Полная поддержка в Onest (assets/fonts/Onest-SemiBold.ttf), Inter, Commissioner, Nunito Sans, Mulish. Решение за владельцем бренд-кита (задача 4).",
+    "font_size": 66,
+    "max_words_per_card": 7,
+    "max_chars_per_line": 22,
+    "fade_in_ms": 350,
+    "fade_out_ms": 250,
+    "min_card_sec": 1.2,
+    "color": "#2B2B2B",
+    "bottom_margin_px": 420,
+    "box_color": "#F3E9E1",
+    "box_opacity": 0.88,
+    "box_padding_px": 18,
+    "box_note": "Фон в стиле светлый (лён, белая ткань): белый текст на нём не читается, поэтому графит на льняной плашке."
+  },
+  "palette": {
+    "linen": "#F3E9E1",
+    "graphite": "#2B2B2B",
+    "teal": "#1F6F6B",
+    "powder": "#E8C9C0"
+  },
+  "audio": {
+    "target_lufs": -14,
+    "ambient_gain_db": -16,
+    "fade_out_sec": 1.5,
+    "sample_rate": 48000
+  },
+  "logo": {
+    "text": "sil·icare by Yafho",
+    "file": "assets/brand/logo.png",
+    "width_px": 520
+  }
+}

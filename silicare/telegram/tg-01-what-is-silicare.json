@@ -1,0 +1,37 @@
+{
+  "id": "tg-01-what-is-silicare",
+  "title": "Что такое Silicare (закреп)",
+  "format": "telegram",
+  "status": "draft",
+  "topic": "scar",
+  "text_ru": "Silicare — медицинские силиконовые пластыри для ухода за рубцами после операций, кесарева сечения и ожогов. Силикон создаёт влажную среду; по международным рекомендациям, силиконовые пластыри входят в первую линию ухода за рубцами, но результат индивидуален. Использовать можно после полного заживления раны.",
+  "text_uz": "Silicare — операциядан, кесар кесишдан ва куйишдан кейинги чандиқларни парвариш қилиш учун тиббий силикон пластирлар. Силикон намлик муҳитини яратади; халқаро тавсияларга кўра, силикон пластирлар чандиқни парвариш қилишнинг биринчи босқичида туради, лекин натижа индивидуал. Яра тўлиқ битганидан кейин қўллаш мумкин.",
+  "disclaimer": true,
+  "claims": [
+    {
+      "text": "силикон создаёт влажную среду",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "силиконовые пластыри входят в первую линию международных рекомендаций",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "результат индивидуален: качество доказательств низкое",
+      "source": "O'Brien L, Jones DJ. Cochrane Database Syst Rev 2013;(9):CD003826",
+      "source_type": "study"
+    },
+    {
+      "text": "использовать после полного заживления раны",
+      "source": "Инструкция по применению Yafho Silicone Scar Sheet, раздел …",
+      "source_type": "instruction"
+    }
+  ],
+  "reviewed_by_native_uz": false,
+  "approved_by_owner": false,
+  "notes": "Текст дословно из стратегии @sil.icare, раздел «Telegram». Дисклеймер добавляется при сборке (python -m silicare.build)."
+}

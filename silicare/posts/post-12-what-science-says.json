@@ -1,0 +1,93 @@
+{
+  "id": "post-12-what-science-says",
+  "title": "Что говорит наука о силиконе",
+  "status": "draft",
+  "format": "carousel",
+  "topic": "scar",
+  "rubric": "Наука о рубце (#илм)",
+  "author": "owner",
+  "goal": "saves",
+  "slides": [
+    {
+      "n": 1,
+      "visual": "Журнальная вёрстка, карточки цитат",
+      "text_ru": "Силикон и рубцы: что говорят исследования"
+    },
+    {
+      "n": 2,
+      "visual": "Карточка цитаты",
+      "text_ru": "Международные рекомендации (Mustoe и соавт., 2002; обновлены в 2014): силикон — первая линия профилактики"
+    },
+    {
+      "n": 3,
+      "visual": "Схема",
+      "text_ru": "Предполагаемый механизм: гидратация рогового слоя и нормализация выработки коллагена"
+    },
+    {
+      "n": 4,
+      "visual": "Карточка цитаты",
+      "text_ru": "Обзор Cochrane: возможна польза, но качество доказательств низкое, нужны более качественные исследования"
+    },
+    {
+      "n": 5,
+      "visual": "Карточка-напоминание",
+      "text_ru": "Важно: результат зависит от регулярности — 12–24 ч в день, месяцами"
+    },
+    {
+      "n": 6,
+      "visual": "QR-коды на Mustoe 2002, Gold 2014, Cochrane CD003826",
+      "text_ru": "Источники: QR-коды на исследования …"
+    },
+    {
+      "n": 7,
+      "visual": "Финальный слайд по шаблону",
+      "text_ru": "Цену и наличие — в Direct · @sil.icare",
+      "text_uz": "Нарх ва мавжудлик — Директда · @sil.icare"
+    }
+  ],
+  "search_phrase": {
+    "ru": "Что говорит наука о силиконе",
+    "uz": "Силикон ҳақида илм нима дейди"
+  },
+  "caption_ru": "Что говорит наука о силиконе для рубцов: честно и со ссылками. Сохраните, чтобы показать врачу.\nМеждународные рекомендации называют силикон первой линией профилактики рубцов.\nОбзор Cochrane оценивает качество доказательств как низкое: польза возможна, но нужны новые исследования.\nРезультат зависит от регулярности: 12–24 часа в день, месяцами. Результат индивидуален.",
+  "caption_uz": "Силикон ҳақида илм нима дейди: ҳалол ва манбалар билан. Шифокорга кўрсатиш учун сақлаб қўйинг.\nХалқаро тавсиялар силиконни чандиқ олдини олишнинг биринчи босқичи деб атайди.\nCochrane шарҳи далиллар сифатини паст деб баҳолайди: фойда бўлиши мумкин, лекин янги тадқиқотлар керак.\nНатижа мунтазамликка боғлиқ: кунига 12–24 соат, ойлар давомида. Натижа индивидуал.",
+  "hashtags": [
+    "#silicare",
+    "#рубец",
+    "#келоид",
+    "#чандиқ"
+  ],
+  "disclaimer": true,
+  "claims": [
+    {
+      "text": "силикон — первая линия профилактики по международным рекомендациям",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "рекомендации обновлены в 2014 году",
+      "source": "Gold MH и соавт. Updated international clinical recommendations on scar management, part 1–2. Dermatol Surg 2014;40(8):817–831",
+      "source_type": "study"
+    },
+    {
+      "text": "механизм: гидратация рогового слоя и нормализация выработки коллагена",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "качество доказательств низкое, возможна польза",
+      "source": "O'Brien L, Jones DJ. Silicone gel sheeting for preventing and treating hypertrophic and keloid scars. Cochrane Database Syst Rev 2013;(9):CD003826",
+      "source_type": "study"
+    },
+    {
+      "text": "носить 12–24 ч в день, месяцами",
+      "source": "Инструкция по применению Yafho Silicone Scar Sheet, раздел …",
+      "source_type": "instruction"
+    }
+  ],
+  "reviewed_by_native_uz": false,
+  "approved_by_owner": false,
+  "notes": "Пост 12 стратегии @sil.icare (план: Пт 30.10), карусель 1080×1350. Правки по ТЗ: Cochrane: «есть польза» → «возможна польза, но качество доказательств низкое» (факт 13 ТЗ); механизм — «предполагаемый». QR-коды и цитаты ждут задачи 9. Экспертный пост владельца: проверьте и дополните."
+}

@@ -1,0 +1,162 @@
+{
+  "_comment": "Словарь терминов RU→UZ для постов, титров и бота (задача 6 подготовки). Все UZ-термины ждут проверки носителем: после проверки поставьте reviewed_by_native_uz: true. uz_latn сгенерирован silicare/translit.py. avoid_uz — варианты, которые check.py помечает предупреждением.",
+  "terms": [
+    {
+      "ru": "рубец",
+      "uz": "чандиқ",
+      "uz_latn": "chandiq",
+      "note": "Основной термин. Ключевое слово для поиска: #чандиқ.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "медицинское изделие",
+      "uz": "тиббий буюм",
+      "uz_latn": "tibbiy buyum",
+      "note": "Часть дисклеймера.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "силиконовый пластырь",
+      "uz": "силикон пластир",
+      "uz_latn": "silikon plastir",
+      "note": "В описании ассортимента также «силикон лента» для полосок — проверить у носителя.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "силиконовая полоска",
+      "uz": "силикон лента",
+      "uz_latn": "silikon lenta",
+      "note": "Полоски для кесарева и швов.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "рана",
+      "uz": "яра",
+      "uz_latn": "yara",
+      "note": "Только в контексте «после заживления» и предупреждения.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "заживление раны",
+      "uz": "яранинг битиши",
+      "uz_latn": "yaraning bitishi",
+      "note": "«Яра битгач» — после заживления.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "шов",
+      "uz": "чок",
+      "uz_latn": "chok",
+      "note": "Мн. ч. «чоклар».",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "ожог",
+      "uz": "куйиш",
+      "uz_latn": "kuyish",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "кесарево сечение",
+      "uz": "кесар кесиш",
+      "uz_latn": "kesar kesish",
+      "note": "Стратегия: «Кесар кесишдан кейин».",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "келоидный рубец",
+      "uz": "келоид чандиқ",
+      "uz_latn": "keloid chandiq",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "гипертрофический рубец",
+      "uz": "гипертрофик чандиқ",
+      "uz_latn": "gipertrofik chandiq",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "клейкая сторона",
+      "uz": "ёпишқоқ томон",
+      "uz_latn": "yopishqoq tomon",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "защитная плёнка",
+      "uz": "ҳимоя плёнкаси",
+      "uz_latn": "himoya plyonkasi",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "коллаген",
+      "uz": "коллаген",
+      "uz_latn": "kollagen",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "влага, влажная среда",
+      "uz": "намлик, намлик муҳити",
+      "uz_latn": "namlik, namlik muhiti",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "врач",
+      "uz": "шифокор",
+      "uz_latn": "shifokor",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "хирург",
+      "uz": "жарроҳ",
+      "uz_latn": "jarroh",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "специалист",
+      "uz": "мутахассис",
+      "uz_latn": "mutaxassis",
+      "note": "Часть дисклеймера.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "кормление грудью",
+      "uz": "эмизиш",
+      "uz_latn": "emizish",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "инструкция по применению",
+      "uz": "қўллаш бўйича йўриқнома",
+      "uz_latn": "qoʻllash boʻyicha yoʻriqnoma",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "регистрационное удостоверение",
+      "uz": "рўйхатдан ўтказиш гувоҳномаси",
+      "uz_latn": "roʻyxatdan oʻtkazish guvohnomasi",
+      "note": "Без слов «одобрено» и «разрешено Минздравом».",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "цена и наличие",
+      "uz": "нарх ва мавжудлик",
+      "uz_latn": "narx va mavjudlik",
+      "note": "CTA: «Нарх ва мавжудлик — Директда».",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "результат индивидуален",
+      "uz": "натижа индивидуал",
+      "uz_latn": "natija individual",
+      "note": "Обязательная оговорка при упоминании эффекта.",
+      "reviewed_by_native_uz": false
+    },
+    {
+      "ru": "созревание рубца",
+      "uz": "чандиқнинг пишиши",
+      "uz_latn": "chandiqning pishishi",
+      "note": "«Чандиқ 12–18 ой пишади».",
+      "reviewed_by_native_uz": false
+    }
+  ]
+}

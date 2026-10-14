@@ -6,7 +6,7 @@ PIP = $(RUN_PYTHON) -m pip
 
 .DEFAULT_GOAL := setup
 
-.PHONY: setup install install-dev install-gpu test test-contracts lint clean preflight demo demo-list hyperframes-doctor hyperframes-warm venv ensure-venv
+.PHONY: setup install install-dev install-gpu test test-contracts lint clean preflight demo demo-list hyperframes-doctor hyperframes-warm venv ensure-venv silicare-check silicare-build silicare-bot-test silicare-hooks
 
 # ---- Virtual environment ----
 
@@ -124,6 +124,21 @@ lint: ensure-venv
 	$(RUN_PYTHON) -m py_compile tools/tool_registry.py
 	$(RUN_PYTHON) -m py_compile tools/cost_tracker.py
 	$(RUN_PYTHON) -m py_compile tools/analysis/composition_validator.py
+
+# ---- Silicare content workspace ----
+
+silicare-check: ensure-venv
+	$(RUN_PYTHON) -m silicare.check
+
+silicare-build: ensure-venv
+	$(RUN_PYTHON) -m silicare.build
+
+silicare-bot-test: ensure-venv
+	$(RUN_PYTHON) -m silicare.bot --test
+
+silicare-hooks:
+	ln -sf ../../silicare/hooks/pre-commit .git/hooks/pre-commit
+	@echo "Pre-commit hook installed: silicare autocheck runs before every commit."
 
 clean:
 	$(BASE_PYTHON) -c "import pathlib, shutil; excluded=[pathlib.Path('$(VENV_DIR)'), pathlib.Path('venv')]; skip=lambda p: any(p == root or root in p.parents for root in excluded); roots=[p for p in pathlib.Path('.').rglob('__pycache__') if not skip(p)]; [shutil.rmtree(p) for p in roots]; files=[p for p in pathlib.Path('.').rglob('*.pyc') if not skip(p)]; [p.unlink() for p in files]"

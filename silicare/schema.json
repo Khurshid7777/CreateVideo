@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://silicare.local/schema.json",
+  "title": "Silicare: контент и справочники",
+  "description": "Один файл схемы для всех JSON в silicare/. Контент (reels, posts, telegram) выбирается по полю format; справочники проверяются через $defs по пути файла (см. silicare/common.py: SCHEMA_BY_PATH).",
+  "allOf": [
+    {"if": {"properties": {"format": {"const": "reels"}}, "required": ["format"]}, "then": {"$ref": "#/$defs/reel"}},
+    {"if": {"properties": {"format": {"enum": ["carousel", "single"]}}, "required": ["format"]}, "then": {"$ref": "#/$defs/post"}},
+    {"if": {"properties": {"format": {"const": "telegram"}}, "required": ["format"]}, "then": {"$ref": "#/$defs/telegram_post"}}
+  ],
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "bilingual": {
+      "type": "object",
+      "required": ["ru", "uz"],
+      "properties": {
+        "ru": {"$ref": "#/$defs/nonempty"},
+        "uz": {"$ref": "#/$defs/nonempty"}
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "description": "draft → approved → scheduled → published. Выше draft только при reviewed_by_native_uz и approved_by_owner = true (проверяет check.py).",
+      "enum": ["draft", "approved", "scheduled", "published"]
+    },
+    "topic": {
+      "description": "scar — уход за рубцом, Silicare в кадре; wound — ролик про раны как вход в воронку, продукт не показываем.",
+      "enum": ["scar", "wound"]
+    },
+    "goal": {"enum": ["sends_per_reach", "saves", "completion", "rewatches", "comments"]},
+    "goals": {
+      "oneOf": [
+        {"$ref": "#/$defs/goal"},
+        {"type": "array", "items": {"$ref": "#/$defs/goal"}, "minItems": 1, "uniqueItems": true}
+      ]
+    },
+    "hashtags": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^#[^\\s#]+$"},
+      "uniqueItems": true
+    },
+    "claim": {
+      "type": "object",
+      "required": ["text", "source"],
+      "properties": {
+        "text": {"$ref": "#/$defs/nonempty"},
+        "source": {"$ref": "#/$defs/nonempty"},
+        "source_type": {
+          "description": "instruction — инструкция производителя; study — исследование, обзор или клинические рекомендации.",
+          "enum": ["instruction", "study"]
+        },
+        "url": {"type": "string"},
+        "quote": {"type": "string", "description": "Точная формулировка из источника (задача 9 подготовки)."}
+      },
+      "additionalProperties": false
+    },
+    "shot": {
+      "type": "object",
+      "required": ["n", "start", "end", "visual", "text_ru", "text_uz", "sound"],
+      "properties": {
+        "n": {"type": "integer", "minimum": 1},
+        "start": {"type": "number", "minimum": 0},
+        "end": {"type": "number", "exclusiveMinimum": 0},
+        "visual": {"$ref": "#/$defs/nonempty"},
+        "light": {"type": "string"},
+        "text_ru": {"type": "string", "description": "Титры кадра. Предложения становятся отдельными карточками. «—» или пусто: без титров."},
+        "text_uz": {"type": "string"},
+        "sound": {"type": "string"},
+        "footage": {"type": "string", "description": "Имя файла в assets/footage/<id>/, если отличается от shot-NN.*"},
+        "in": {"type": "number", "minimum": 0, "description": "С какой секунды исходника брать кадр."}
+      },
+      "additionalProperties": false
+    },
+    "common_publication": {
+      "type": "object",
+      "required": ["id", "status", "topic", "caption_ru", "caption_uz", "search_phrase", "hashtags", "disclaimer", "claims", "reviewed_by_native_uz", "approved_by_owner"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "title": {"type": "string"},
+        "status": {"$ref": "#/$defs/status"},
+        "topic": {"$ref": "#/$defs/topic"},
+        "caption_ru": {"$ref": "#/$defs/nonempty"},
+        "caption_uz": {"$ref": "#/$defs/nonempty"},
+        "search_phrase": {"$ref": "#/$defs/bilingual"},
+        "hashtags": {"$ref": "#/$defs/hashtags"},
+        "disclaimer": {"type": "boolean", "description": "true — к подписи добавляется дисклеймер из forbidden.json (RU и UZ)."},
+        "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+        "reviewed_by_native_uz": {"type": "boolean"},
+        "approved_by_owner": {"type": "boolean"},
+        "notes": {"type": "string"}
+      }
+    },
+    "reel": {
+      "allOf": [{"$ref": "#/$defs/common_publication"}],
+      "type": "object",
+      "required": ["format", "production", "length_sec", "goal", "hook", "shots"],
+      "properties": {
+        "id": true, "title": true, "status": true, "topic": true, "caption_ru": true, "caption_uz": true,
+        "search_phrase": true, "hashtags": true, "disclaimer": true, "claims": true,
+        "reviewed_by_native_uz": true, "approved_by_owner": true, "notes": true,
+        "format": {"const": "reels"},
+        "production": {"enum": ["shoot", "animation"], "description": "shoot — снимаем и собираем assemble.py; animation — анимация (Remotion или видеосервис)."},
+        "length_sec": {"type": "number", "exclusiveMinimum": 0},
+        "goal": {"$ref": "#/$defs/goals"},
+        "palette": {"type": "array", "items": {"type": "string"}},
+        "sound_design": {"type": "string"},
+        "hook": {"$ref": "#/$defs/bilingual"},
+        "shots": {"type": "array", "items": {"$ref": "#/$defs/shot"}, "minItems": 1}
+      },
+      "additionalProperties": false
+    },
+    "slide": {
+      "type": "object",
+      "required": ["n", "text_ru"],
+      "properties": {
+        "n": {"type": "integer", "minimum": 1},
+        "visual": {"type": "string"},
+        "text_ru": {"$ref": "#/$defs/nonempty"},
+        "text_uz": {"type": "string", "description": "По стратегии слайды на RU, UZ в подписи; каждый третий пост со слайдами на UZ."}
+      },
+      "additionalProperties": false
+    },
+    "post": {
+      "allOf": [{"$ref": "#/$defs/common_publication"}],
+      "type": "object",
+      "required": ["format", "slides"],
+      "properties": {
+        "id": true, "title": true, "status": true, "topic": true, "caption_ru": true, "caption_uz": true,
+        "search_phrase": true, "hashtags": true, "disclaimer": true, "claims": true,
+        "reviewed_by_native_uz": true, "approved_by_owner": true, "notes": true,
+        "format": {"enum": ["carousel", "single"]},
+        "goal": {"$ref": "#/$defs/goals"},
+        "rubric": {"type": "string"},
+        "author": {"enum": ["ai", "owner"], "description": "owner — экспертный пост владельца (посты 4, 8, 11, 12 по стратегии)."},
+        "slides": {"type": "array", "items": {"$ref": "#/$defs/slide"}, "minItems": 1, "maxItems": 20}
+      },
+      "additionalProperties": false
+    },
+    "telegram_post": {
+      "type": "object",
+      "required": ["id", "format", "status", "topic", "text_ru", "text_uz", "disclaimer", "claims", "reviewed_by_native_uz", "approved_by_owner"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "title": {"type": "string"},
+        "format": {"const": "telegram"},
+        "status": {"$ref": "#/$defs/status"},
+        "topic": {"$ref": "#/$defs/topic"},
+        "text_ru": {"$ref": "#/$defs/nonempty"},
+        "text_uz": {"$ref": "#/$defs/nonempty"},
+        "disclaimer": {"type": "boolean"},
+        "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+        "reviewed_by_native_uz": {"type": "boolean"},
+        "approved_by_owner": {"type": "boolean"},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "glossary": {
+      "type": "object",
+      "required": ["terms"],
+      "properties": {
+        "_comment": {"type": "string"},
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ru", "uz", "reviewed_by_native_uz"],
+            "properties": {
+              "ru": {"$ref": "#/$defs/nonempty"},
+              "uz": {"$ref": "#/$defs/nonempty"},
+              "uz_latn": {"type": "string"},
+              "note": {"type": "string"},
+              "avoid_uz": {"type": "array", "items": {"type": "string"}},
+              "reviewed_by_native_uz": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "pattern_rule": {
+      "type": "object",
+      "required": ["pattern", "reason"],
+      "properties": {
+        "pattern": {"$ref": "#/$defs/nonempty"},
+        "lang": {"enum": ["ru", "uz", "any"]},
+        "scope": {"enum": ["all", "product"], "description": "product — только там, где показан Silicare (topic = scar)."},
+        "reason": {"$ref": "#/$defs/nonempty"}
+      },
+      "additionalProperties": false
+    },
+    "forbidden": {
+      "type": "object",
+      "required": ["phrases", "currency", "hashtags", "disclaimer", "doctor_line", "wound", "placeholders"],
+      "properties": {
+        "_comment": {"type": "string"},
+        "phrases": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}},
+        "second_person": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}},
+        "currency": {
+          "type": "object",
+          "required": ["forbidden", "allowed_units"],
+          "properties": {
+            "forbidden": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}},
+            "allowed_units": {"type": "array", "items": {"type": "string"}}
+          },
+          "additionalProperties": false
+        },
+        "hashtags": {
+          "type": "object",
+          "required": ["min", "max"],
+          "properties": {
+            "min": {"type": "integer", "minimum": 0},
+            "max": {"type": "integer", "minimum": 1},
+            "pool": {"type": "array", "items": {"type": "string"}, "description": "Пул из стратегии; хэштег вне пула даёт предупреждение."}
+          },
+          "additionalProperties": false
+        },
+        "cta": {"$ref": "#/$defs/bilingual"},
+        "disclaimer": {
+          "type": "object",
+          "required": ["ru", "uz", "approved_by_lawyer"],
+          "properties": {
+            "ru": {"$ref": "#/$defs/nonempty"},
+            "uz": {"$ref": "#/$defs/nonempty"},
+            "approved_by_lawyer": {"type": "boolean"},
+            "note": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "doctor_line": {"$ref": "#/$defs/bilingual"},
+        "wound": {
+          "type": "object",
+          "required": ["words", "allowed_context", "forbidden_visual"],
+          "properties": {
+            "words": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}},
+            "allowed_context": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}},
+            "forbidden_visual": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}}
+          },
+          "additionalProperties": false
+        },
+        "placeholders": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "faq": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "_comment": {"type": "string"},
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "triggers", "answer"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+              "triggers": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+              "answer": {"$ref": "#/$defs/bilingual"},
+              "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+              "needs_product_data": {"type": "boolean", "description": "true — ответ опирается на инструкцию или каталог, которых ещё нет."}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "handoff": {
+      "type": "object",
+      "required": ["rules", "fallback"],
+      "properties": {
+        "_comment": {"type": "string"},
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "priority", "when", "action", "reply"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+              "priority": {"type": "integer"},
+              "when": {
+                "type": "object",
+                "properties": {
+                  "any": {"type": "array", "items": {"type": "string"}},
+                  "has_photo": {"type": "boolean"}
+                },
+                "additionalProperties": false
+              },
+              "action": {"enum": ["urgent_human", "human", "answer", "checklist"]},
+              "reply": {"$ref": "#/$defs/bilingual"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "fallback": {
+          "type": "object",
+          "required": ["action", "reply"],
+          "properties": {
+            "action": {"enum": ["human"]},
+            "reply": {"$ref": "#/$defs/bilingual"}
+          },
+          "additionalProperties": false
+        },
+        "never_say": {"type": "array", "items": {"$ref": "#/$defs/pattern_rule"}}
+      },
+      "additionalProperties": false
+    },
+    "dialogs": {
+      "type": "object",
+      "required": ["dialogs"],
+      "properties": {
+        "_comment": {"type": "string"},
+        "dialogs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "message", "expect"],
+            "properties": {
+              "id": {"type": "string"},
+              "danger": {"type": "boolean"},
+              "message": {"$ref": "#/$defs/nonempty"},
+              "has_photo": {"type": "boolean"},
+              "expect": {
+                "type": "object",
+                "required": ["action"],
+                "properties": {
+                  "action": {"enum": ["urgent_human", "human", "answer", "checklist"]},
+                  "rule": {"type": "string"},
+                  "lang": {"enum": ["ru", "uz"]},
+                  "contains": {"type": "array", "items": {"type": "string"}}
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
