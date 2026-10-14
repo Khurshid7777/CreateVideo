@@ -1,0 +1,122 @@
+{
+  "id": "reel-04-why-scar-gets-rough",
+  "title": "Почему рубец становится грубым",
+  "status": "draft",
+  "format": "reels",
+  "topic": "scar",
+  "production": "animation",
+  "remotion": {
+    "dir": "reel-04",
+    "composition_id": "SilicareReel04"
+  },
+  "length_sec": 25,
+  "goal": "completion",
+  "palette": [
+    "linen",
+    "graphite",
+    "teal"
+  ],
+  "sound_design": "Низкий drone, нарастающий тон, мягкий финальный аккорд; без красного в кадре",
+  "logo_y_ratio": 0.22,
+  "hook": {
+    "ru": "Почему рубец становится грубым?",
+    "uz": "Чандиқ нега дағал бўлади?"
+  },
+  "shots": [
+    {
+      "n": 1,
+      "start": 0.0,
+      "end": 3.0,
+      "visual": "Макротекстура кожи, медленный пролёт камеры вдоль поверхности",
+      "text_ru": "Почему рубец становится грубым?",
+      "text_uz": "Чандиқ нега дағал бўлади?",
+      "sound": "Низкий drone"
+    },
+    {
+      "n": 2,
+      "start": 3.0,
+      "end": 7.0,
+      "visual": "Камера входит в срез: тонкие линии эпидермиса и дермы",
+      "text_ru": "Рана заживает: организм делает коллаген",
+      "text_uz": "Яра битади: организм коллаген ишлаб чиқаради",
+      "sound": "Нарастающий тон"
+    },
+    {
+      "n": 3,
+      "start": 7.0,
+      "end": 12.0,
+      "visual": "Капли влаги уходят вверх с поверхности, цвет теплеет",
+      "text_ru": "Считается, что без влаги коллагена больше",
+      "text_uz": "Намликсиз коллаген кўпаяди, деб ҳисобланади",
+      "sound": "Тон держится"
+    },
+    {
+      "n": 4,
+      "start": 12.0,
+      "end": 16.0,
+      "visual": "Волокна коллагена густеют, поверхность поднимается",
+      "text_ru": "Рубец становится плотным и выпуклым",
+      "text_uz": "Чандиқ зичлашиб, бўртиб чиқади",
+      "sound": "Низкий акцент"
+    },
+    {
+      "n": 5,
+      "start": 16.0,
+      "end": 21.0,
+      "visual": "Сверху ложится прозрачный слой силикона, капли возвращаются под него, цвет уходит в тил",
+      "text_ru": "Силикон сохраняет влагу",
+      "text_uz": "Силикон намликни сақлайди",
+      "sound": "Тон светлеет"
+    },
+    {
+      "n": 6,
+      "start": 21.0,
+      "end": 25.0,
+      "visual": "Волокна выравниваются, логотип sil·icare by Yafho",
+      "text_ru": "Силикон может помочь рубцу стать мягче. Результат индивидуален",
+      "text_uz": "Силикон чандиқнинг юмшоқ бўлишига ёрдам бериши мумкин. Натижа индивидуал",
+      "sound": "Мягкий аккорд"
+    }
+  ],
+  "search_phrase": {
+    "ru": "Почему рубец становится грубым",
+    "uz": "Чандиқ нега дағал бўлади"
+  },
+  "caption_ru": "Почему рубец становится грубым и выпуклым? Коротко о том, что происходит под кожей.\nКогда рана заживает, организм вырабатывает коллаген.\nСчитается, что кожа над рубцом теряет влагу, и коллагена образуется больше.\nСиликон сохраняет влагу и может помочь рубцу стать мягче. Результат индивидуален.",
+  "caption_uz": "Чандиқ нега дағал бўлади ва бўртиб чиқади? Тери остида нима бўлишини қисқача айтамиз.\nЯра битаётганда организм коллаген ишлаб чиқаради.\nЧандиқ устидаги тери намликни йўқотади ва коллаген кўпаяди, деб ҳисобланади.\nСиликон намликни сақлайди ва чандиқнинг юмшоқ бўлишига ёрдам бериши мумкин. Натижа индивидуал.",
+  "hashtags": [
+    "#silicare",
+    "#рубец",
+    "#келоид",
+    "#чандиқ"
+  ],
+  "disclaimer": true,
+  "claims": [
+    {
+      "text": "при заживлении раны организм вырабатывает коллаген",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571; обновление Gold MH и соавт., Dermatol Surg 2014;40(8):817–831",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "считается, что потеря влаги кожей над рубцом усиливает выработку коллагена",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571; обновление Gold MH и соавт., Dermatol Surg 2014;40(8):817–831",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "силикон сохраняет влагу (окклюзия, гидратация рогового слоя)",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571; обновление Gold MH и соавт., Dermatol Surg 2014;40(8):817–831",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "силикон может помочь рубцу стать мягче, результат индивидуален; качество доказательств низкое",
+      "source": "O'Brien L, Jones DJ. Silicone gel sheeting for preventing and treating hypertrophic and keloid scars. Cochrane Database Syst Rev 2013;(9):CD003826",
+      "source_type": "study"
+    }
+  ],
+  "reviewed_by_native_uz": false,
+  "approved_by_owner": false,
+  "notes": "Анимация на Remotion (выбор владельца): исходники и арт-дирекшн в silicare/remotion/reel-04/. Рендер: python -m silicare.animate reel-04-why-scar-gets-rough → assets/footage/<id>/full.mp4; звук: python -m silicare.soundbed; сборка режет full.mp4 на кадры. Формулировки механизма сверить с научными ссылками (задача 9)."
+}

@@ -104,3 +104,10 @@ venv/
 
 # Local Wan / diffusers GPU environment
 .venv-wan/
+
+# Silicare: renders, subtitles and raw footage are regenerable or too large for git
+silicare/build/
+silicare/assets/footage/*
+!silicare/assets/footage/README.md
+silicare/assets/audio/*
+!silicare/assets/audio/README.md

@@ -1,0 +1,26 @@
+{
+  "id": "tg-03-when-to-start",
+  "title": "Когда начинать (закреп)",
+  "format": "telegram",
+  "status": "draft",
+  "topic": "scar",
+  "text_ru": "Начинайте, когда рана полностью закрылась и корочек нет, обычно через 2–3 недели после закрытия раны. Не клейте на открытую рану. Если сомневаетесь, уточните у вашего хирурга.",
+  "text_uz": "Яра тўлиқ ёпилгач ва қобиқлар қолмагач, одатда яра ёпилгандан 2–3 ҳафта ўтгач бошланг. Очиқ яра устига ёпиштирманг. Шубҳа бўлса, жарроҳингиздан сўранг.",
+  "disclaimer": true,
+  "claims": [
+    {
+      "text": "начинать после закрытия раны, обычно через 2–3 недели после закрытия раны",
+      "source": "Mustoe TA и соавт. International clinical recommendations on scar management. Plast Reconstr Surg 2002;110(2):560–571",
+      "source_type": "study",
+      "url": "https://www.drthomasmustoe.com/content/uploads/2020/03/International-Clinical-Recommendations-on-Scar-Management.pdf"
+    },
+    {
+      "text": "не клеить на открытую рану",
+      "source": "Инструкция по применению Yafho Silicone Scar Sheet, раздел …",
+      "source_type": "instruction"
+    }
+  ],
+  "reviewed_by_native_uz": false,
+  "approved_by_owner": false,
+  "notes": "Текст дословно из стратегии @sil.icare, раздел «Telegram». Дисклеймер добавляется при сборке (python -m silicare.build)."
+}
