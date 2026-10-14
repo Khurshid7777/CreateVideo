@@ -332,8 +332,6 @@ class Checker:
             self.warn(rel, "в первом кадре нет титра-зацепки")
 
     def _font_coverage(self, item, rel):
-        if item.get("production") != "shoot":
-            return
         missing = font_missing_chars(self.root / self.style["titles"]["font_file"],
                                      " ".join(s["text_uz"] + " " + s["text_ru"] for s in item["shots"]))
         if missing is None:

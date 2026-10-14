@@ -5,6 +5,10 @@
   "format": "reels",
   "topic": "scar",
   "production": "animation",
+  "remotion": {
+    "dir": "reel-04",
+    "composition_id": "SilicareReel04"
+  },
   "length_sec": 25,
   "goal": "completion",
   "palette": [
@@ -13,6 +17,7 @@
     "teal"
   ],
   "sound_design": "Низкий drone, нарастающий тон, мягкий финальный аккорд; без красного в кадре",
+  "logo_y_ratio": 0.22,
   "hook": {
     "ru": "Почему рубец становится грубым?",
     "uz": "Чандиқ нега дағал бўлади?"
@@ -113,5 +118,5 @@
   ],
   "reviewed_by_native_uz": false,
   "approved_by_owner": false,
-  "notes": "Анимация среза кожи, съёмки нет. Код анимации (Remotion) или промпты для видеосервиса — выбор за владельцем; промпты в prompts/reel-04-animation.md. Формулировки механизма сверить с научными ссылками (задача 9)."
+  "notes": "Анимация на Remotion (выбор владельца): исходники и арт-дирекшн в silicare/remotion/reel-04/. Рендер: python -m silicare.animate reel-04-why-scar-gets-rough → assets/footage/<id>/full.mp4; звук: python -m silicare.soundbed; сборка режет full.mp4 на кадры. Формулировки механизма сверить с научными ссылками (задача 9)."
 }

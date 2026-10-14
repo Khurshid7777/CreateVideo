@@ -54,9 +54,18 @@ def test_preview_render_matches_delivery_spec(tmp_path):
 def test_uzbek_titles_need_a_font_with_uzbek_letters(tmp_path):
     pytest.importorskip("fontTools")
     footage = make_footage(tmp_path / "footage")
+    manrope = common.ROOT / "assets" / "fonts" / "Manrope-SemiBold.ttf"  # no қ ғ ҳ
     with pytest.raises(assemble.AssembleError, match="не содержит"):
-        assemble.assemble("reel-01-how-to-apply", "uz", footage_root=footage, out_dir=tmp_path / "out",
-                          preview=True, preset="ultrafast")
+        assemble.assemble("reel-01-how-to-apply", "uz", font=manrope, footage_root=footage,
+                          out_dir=tmp_path / "out", preview=True, preset="ultrafast")
+
+
+def test_default_title_font_covers_uzbek():
+    from silicare.check import font_missing_chars
+
+    pytest.importorskip("fontTools")
+    font = common.ROOT / common.style()["titles"]["font_file"]
+    assert font_missing_chars(font, "ўЎқҚғҒҳҲ") == set()
 
 
 def test_safe_zone_guard():

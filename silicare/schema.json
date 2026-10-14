@@ -104,6 +104,14 @@
         "goal": {"$ref": "#/$defs/goals"},
         "palette": {"type": "array", "items": {"type": "string"}},
         "sound_design": {"type": "string"},
+        "logo_y_ratio": {"type": "number", "minimum": 0, "maximum": 1, "description": "Верх логотипа в финальном кадре, доля высоты; по умолчанию style.json logo.y_ratio."},
+        "remotion": {
+          "type": "object",
+          "description": "Для production = animation: папка в silicare/remotion/ и id композиции (python -m silicare.animate).",
+          "required": ["dir", "composition_id"],
+          "properties": {"dir": {"$ref": "#/$defs/nonempty"}, "composition_id": {"$ref": "#/$defs/nonempty"}},
+          "additionalProperties": false
+        },
         "hook": {"$ref": "#/$defs/bilingual"},
         "shots": {"type": "array", "items": {"$ref": "#/$defs/shot"}, "minItems": 1}
       },

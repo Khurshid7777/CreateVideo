@@ -11,7 +11,7 @@
 | Автопроверка текстов | `check.py`, правила в `forbidden.json`, хук `hooks/pre-commit` | `python -m silicare.check`: 0 ошибок до публикации |
 | Сценарии и титры | `reels/*.json`; `build.py` делает SRT и ASS на RU и UZ | Тексты кадров дословно из таблиц ТЗ |
 | Сборка роликов из отснятого | `assemble.py`, FFmpeg, 1080×1920, 24 к/с | Сама проверяет размер, частоту кадров, длину и звук |
-| Анимационные ролики | `prompts/reel-04-animation.md`, `prompts/reel-02-cards.md` | Выбор пути за владельцем |
+| Анимационные ролики | Ролик 4 на Remotion: `remotion/reel-04/` (арт-дирекшн там же), `animate.py`, звук `soundbed.py`; карточки ролика 2 — `prompts/reel-02-cards.md` | Кадры сверены со сценарием; рендер проходит ревью `video_compose` |
 | Расписание | `schedule.csv`, статус «ждёт проверки» | «утверждено» ставит владелец; автопроверка не даст утвердить неутверждённый файл |
 | База знаний бота | `bot/faq.json`, `bot/handoff.json`, `bot/test_dialogs.json`, `bot.py` | `python -m silicare.bot --test`: 20 из 20, ни одного диагноза по фото |
 | Месячный отчёт | `report.py`, цели M1–M3 в `kpi.json` | Отчёт даёт цифры, решения принимает владелец |
@@ -27,6 +27,9 @@ python -m silicare.check                 # ошибки и предупрежд�
 python -m silicare.check --publish       # правила публикации: что ещё мешает выпуску
 python -m silicare.build                 # субтитры и готовые подписи в silicare/build/<id>/
 python -m silicare.assemble reel-01-how-to-apply --preview   # черновая сборка без съёмки
+python -m silicare.animate reel-04-why-scar-gets-rough        # анимация Remotion → full.mp4
+python -m silicare.soundbed                                    # звук ролика 4
+python -m silicare.assemble reel-04-why-scar-gets-rough --ambient silicare/build/reel-04-why-scar-gets-rough/soundbed.wav
 python -m silicare.bot "Когда можно начинать?"
 python -m silicare.report --month 2026-11 --month-index 1 --instagram export.csv
 ```
@@ -63,10 +66,19 @@ python -m silicare.report --month 2026-11 --month-index 1 --instagram export.csv
 | --- | --- |
 | 1. Юрист | `forbidden.json` → `disclaimer.approved_by_lawyer: true`; решение по кириллице или латинице: `--uz-script latn` уже работает |
 | 2. Инструкция и каталог Yafho | Разделы инструкции вместо «…» в `claims`; цены, размеры и аптеки в `bot/faq.json` (до этого бот передаёт такие вопросы человеку) |
-| 4. Бренд-кит | `assets/brand/logo.png`; шрифт для UZ (см. ниже) |
+| 4. Бренд-кит | `assets/brand/logo.png`: сборка наложит его на финальный кадр каждого ролика |
 | 6. Носитель узбекского | `reviewed_by_native_uz` в постах и `glossary.json` |
 | 9. Научные ссылки | Поле `quote` у утверждений с `source_type: study` |
 | 10. Съёмка | Клипы в `assets/footage/<id>/shot-NN.mp4` |
 | 11. Музыка | Треки в `assets/audio/`, флаг `--ambient` |
 
-Шрифт: Manrope из ТЗ не содержит қ ғ ҳ и ʻ, поэтому узбекские титры на кириллице им не собрать. В `assets/fonts/` лежат Manrope и Onest (обе под лицензией OFL); у Onest полная поддержка узбекского. Пока бренд-кит не решён, UZ-версии собирайте так: `--font silicare/assets/fonts/Onest-SemiBold.ttf`.
+Шрифт титров — Onest SemiBold (выбор владельца): в Manrope из ТЗ нет узбекских қ ғ ҳ и ʻ. Оба шрифта лежат в `assets/fonts/` под лицензией OFL; автопроверка и сборка сверяют, что в шрифте есть все буквы титров.
+
+## Анимация ролика 4
+
+Авторская композиция Remotion без стоковых сцен репозитория: срез кожи, влага, волокна коллагена, лист силикона. Арт-дирекшн и покадровый план — `remotion/reel-04/art-direction.md`.
+
+1. Один раз: `cd remotion-composer && npm ci`. Если Remotion не может скачать свой браузер (песочница, CI), задайте `REMOTION_BROWSER_EXECUTABLE` — путь к локальному Chromium headless shell.
+2. `python -m silicare.animate reel-04-why-scar-gets-rough` рендерит 25 секунд без текста в `assets/footage/reel-04-why-scar-gets-rough/full.mp4` через `video_compose` (режим atelier).
+3. `python -m silicare.soundbed` собирает звук по колонке «Звук» сценария: drone, нарастающий тон, акцент, аккорд. Его можно заменить лицензированным треком.
+4. `python -m silicare.assemble …` режет `full.mp4` по кадрам сценария и накладывает титры RU и UZ, логотип (в верхней трети, `logo_y_ratio` в JSON) и звук.

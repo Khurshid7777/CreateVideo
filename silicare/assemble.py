@@ -7,7 +7,8 @@
 
 Footage: silicare/assets/footage/<id>/shot-01.mp4, shot-02.mov, … (video or a
 still image). A shot's "footage" field overrides the name, its "in" field sets
-the start second inside the clip. Each shot is cut to its scenario duration,
+the start second inside the clip. An animated reel can instead provide one
+full-length render, full.mp4: each shot is then cut from it at its own time. Each shot is cut to its scenario duration,
 cropped to fill 1080×1920 and conformed to 24 fps.
 
 Sound: the clips' own sound (object sounds) plus an optional ambient track
@@ -46,6 +47,7 @@ class Source:
     path: Path | None  # None = stand-in card (preview)
     kind: str  # "video" | "image" | "card"
     has_audio: bool
+    start_in: float = 0.0  # second inside the source where the shot begins
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
@@ -69,7 +71,10 @@ def _has_audio(path: Path) -> bool:
 
 
 def find_sources(reel: dict, footage_dir: Path, preview: bool) -> list[Source]:
+    """Per-shot files win; otherwise one full-length render (full.mp4) feeds every shot."""
     sources, missing = [], []
+    full = next((p for p in sorted(footage_dir.glob("full.*")) if p.suffix.lower() in VIDEO_EXT), None)
+    full_audio = _has_audio(full) if full else False
     for shot in reel["shots"]:
         candidates = []
         if shot.get("footage"):
@@ -77,13 +82,15 @@ def find_sources(reel: dict, footage_dir: Path, preview: bool) -> list[Source]:
         for stem in (f"shot-{shot['n']:02d}", f"{shot['n']:02d}", f"shot-{shot['n']}"):
             candidates += sorted(footage_dir.glob(f"{stem}.*"))
         path = next((p for p in candidates if p.exists() and p.suffix.lower() in VIDEO_EXT | IMAGE_EXT), None)
-        if path is None:
+        if path is None and full is not None:
+            sources.append(Source(shot, full, "video", full_audio, float(shot.get("in", shot["start"]))))
+        elif path is None:
             missing.append(shot["n"])
             sources.append(Source(shot, None, "card", False))
         elif path.suffix.lower() in IMAGE_EXT:
             sources.append(Source(shot, path, "image", False))
         else:
-            sources.append(Source(shot, path, "video", _has_audio(path)))
+            sources.append(Source(shot, path, "video", _has_audio(path), float(shot.get("in", 0))))
     if missing and not preview:
         raise AssembleError(
             f"нет исходников для кадров {missing} в {footage_dir}. "
@@ -131,8 +138,6 @@ def assemble(
     reel = build.localize(common.load_json(common.find_content(reel_id)), uz_script, apostrophe)
     if reel["format"] != "reels":
         raise AssembleError(f"{reel_id} — не Reels")
-    if reel.get("production") == "animation" and not preview:
-        print(f"Внимание: {reel_id} задуман как анимация; сборка из отснятого — только если вы так решили.", file=sys.stderr)
 
     font_file = (font or common.ROOT / t["font_file"]).resolve()
     titles_text = " ".join(s[f"text_{lang}"] for s in reel["shots"])
@@ -155,6 +160,9 @@ def assemble(
 
     footage_dir = (footage_root or common.ROOT / "assets" / "footage") / reel["id"]
     sources = find_sources(reel, footage_dir, preview)
+    if reel.get("production") == "animation" and not any(src.path and src.path.stem == "full" for src in sources):
+        print(f"Внимание: для анимации {reel_id} нет рендера {footage_dir.name}/full.mp4; собираю из покадровых файлов.",
+              file=sys.stderr)
 
     W, H, FPS = v["width"], v["height"], v["fps"]
     length = float(reel["length_sec"])
@@ -167,7 +175,7 @@ def assemble(
         for src in sources:
             shot = src.shot
             dur = float(shot["end"]) - float(shot["start"])
-            start_in = float(shot.get("in", 0))
+            start_in = src.start_in
             cover = f"scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1"
             if src.kind == "video":
                 inputs += ["-ss", f"{start_in:.3f}", "-t", f"{dur:.3f}", "-i", str(src.path)]
@@ -215,7 +223,8 @@ def assemble(
                 f"[{idx}:v]scale={style['logo']['width_px']}:-1,format=rgba,"
                 f"fade=t=in:st={last_start + 0.3:.3f}:d=0.6:alpha=1[lg]"
             )
-            chains.append(f"[vs][lg]overlay=x=(W-w)/2:y=H*0.40:enable='gte(t,{last_start:.3f})'[vl]")
+            y_ratio = reel.get("logo_y_ratio", style["logo"].get("y_ratio", 0.40))
+            chains.append(f"[vs][lg]overlay=x=(W-w)/2:y=H*{y_ratio:.3f}:enable='gte(t,{last_start:.3f})'[vl]")
             video_out = "vl"
             idx += 1
 
